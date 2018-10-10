@@ -3,35 +3,37 @@ from time import sleep
 
 ledPin = 8
 btnPin = 10
-
+interval = 0.5
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(btnPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(ledPin, GPIO.OUT, initial=GPIO.LOW)
 
 
-
-
-def sendOutMessage(chan):
-    sleep(.1)
+def sendOutSignal(chan):
     state = not GPIO.input(ledPin)
 
     if state:
-        GPIO.output(ledPin, GPIO.HIGH)
+        while True:
+            GPIO.output(ledPin, GPIO.HIGH)
+            sleep(1)
+            GPIO.output(ledPin, GPIO.LOW)
+            sleep(1)
     else:
         GPIO.output(ledPin, GPIO.LOW)
+
+
 
 def start():
     GPIO.add_event_detect(
         btnPin,
         GPIO.RISING,
-        callback=sendOutMessage
+        callback=sendOutSignal
     )
 
 
 try:
     start()
-    input('press enter to stop')
 
 except KeyboardInterrupt:
     GPIO.cleanup()
