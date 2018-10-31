@@ -38,7 +38,6 @@ def laatAlarmAfGaan():
     init()
     print('het alarm gaat zo af, je kan hem nog uitzetten')
     sleep(3)
-    print('is alarm ringing', isAlarmRinging)
 
     if isAlarmRinging:
         print('DAAA DUUU DAA DUU')
@@ -65,7 +64,5 @@ while True:
     if isAlarmRinging:
         laatAlarmAfGaan()
         break
-
-
 
 input()
